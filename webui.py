@@ -151,7 +151,7 @@ def main():
                               outputs=[audio_output])
         mode_checkbox_group.change(fn=change_instruction, inputs=[mode_checkbox_group], outputs=[instruction_text])
     demo.queue(max_size=4, default_concurrency_limit=2)
-    demo.launch(server_name='0.0.0.0', server_port=args.port)
+    demo.launch(server_name='0.0.0.0', server_port=args.port, share=args.share)
 
 
 if __name__ == '__main__':
@@ -163,6 +163,10 @@ if __name__ == '__main__':
                         type=str,
                         default='pretrained_models/CosyVoice2-0.5B',
                         help='local path or modelscope repo id')
+    parser.add_argument('--share',
+                        action='store_true',
+                        default=False,
+                        help='share the web UI via Gradio public URL')
     args = parser.parse_args()
     cosyvoice = AutoModel(model_dir=args.model_dir)
 
